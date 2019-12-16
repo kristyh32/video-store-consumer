@@ -6,8 +6,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import System from './components/System.js';
-import About from './components/About.js';
+import MovieLibrary from './components/MovieLibrary.js';
+import MovieSearch from './components/MovieSearch.js';
+import CustomerList from './components/CustomerList.js';
 
 class App extends Component {
 
@@ -28,10 +29,13 @@ class App extends Component {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/about">About</Link>
+                <Link to="/search">Search Movies</Link>
               </li>
               <li>
-                <Link to="/users">Users</Link>
+                <Link to="/library">Movie Library</Link>
+              </li>
+              <li>
+                <Link to="/customers">Customers</Link>
               </li>
             </ul>
           </nav>
@@ -41,11 +45,14 @@ class App extends Component {
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
           <Switch>
-            <Route path="/about">
-              <About />
+            <Route path="/customers">
+              <CustomerList />
             </Route>
-            <Route path="/users">
-              <Users />
+            <Route path="/library">
+              <MovieLibrary />
+            </Route>
+            <Route path="/search">
+              <MovieSearch />
             </Route>
             <Route path="/">
               <Home />
@@ -59,13 +66,8 @@ class App extends Component {
 
 export default App
 
+
 function Home() {
   return <h2>Home</h2>;
-}
-
-
-
-function Users() {
-  return <h2>Users</h2>;
 }
 

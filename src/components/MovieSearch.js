@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class System extends Component {
+class MovieSearch extends Component {
 
   constructor(props) {
     super(props);
@@ -12,11 +12,11 @@ class System extends Component {
 
   render(){
   return (
-    <h2>System</h2>
+    <h2>MovieSearch</h2>
   )
   
 }
   
 }
 
-export default System;
+export default MovieSearch;
