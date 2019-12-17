@@ -10,15 +10,15 @@ class App extends Component {
     super(props);
 
     this.state = {
-     currentMovie: undefined,
-     selectedCustomer: undefined,
-    activeItem: "home"
-    }
+      currentMovie: undefined,
+      selectedCustomer: undefined,
+      activeItem: "home"
+    };
   }
 
-  onSelectMovie = (movie) => {
-    this.setState({currentMovie: movie});
-  }
+  onSelectMovie = movie => {
+    this.setState({ currentMovie: movie });
+  };
 
   handleSelectedCustomer = customer => {
     this.setState({
@@ -34,7 +34,7 @@ class App extends Component {
 
   render() {
     const { selectedCustomer, activeItem, currentMovie } = this.state;
-    
+
     return (
       <Router>
         <div>
@@ -78,7 +78,6 @@ class App extends Component {
             </ul>
           </nav>
 
-
           {selectedCustomer && (
             <div className="alert alert-info">
               <h3>Selected Customer</h3>
@@ -104,7 +103,7 @@ class App extends Component {
                 />
               </Route>
               <Route path="/library">
-                <MovieLibrary onSelectMovie={this.onSelectMovie}/>
+                <MovieLibrary onSelectMovie={this.onSelectMovie} />
               </Route>
               <Route path="/search">
                 <MovieSearch />
