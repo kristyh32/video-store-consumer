@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Movie from "./Movie";
 
 class MovieSearch extends Component {
   constructor(props) {
@@ -31,17 +32,12 @@ class MovieSearch extends Component {
     this.setState({
       loading: true
     });
-    axios
-      .get(`http://localhost:2999//movies/${title}`{
-        params: {
-          
-        }
-      })
+    axios.get(`http://localhost:2999//movies/`, { params: { query: title } });
       .then(response => response.data)
       .then(data => {
         console.log(data);
         this.setState({
-          movie: data,
+          movie: data[0],
           loading: false,
           error: ""
         });
@@ -86,28 +82,12 @@ class MovieSearch extends Component {
           ></div>
         )}
 
-        {movie && (
-          <div className="card" style={{ width: "18rem;"}}>
-            <img
-              src={movie.image_url}
-              className="card-img-top img-thumbnail img-fluid"
-            />
-            <div className="card-body">
-              <h5 className="card-title">{movie.title}</h5>
-              <p className="card-text">{movie.overview}</p>
-              {/* <a href="#" className="btn btn-primary">
-                  Go somewhere
-                </a> */}
-            </div>
-          </div>
-        )}
+        {movie && <Movie {...movie} />}
 
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
     );
   }
 }
-
-
 
 export default MovieSearch;
