@@ -32,7 +32,8 @@ class MovieSearch extends Component {
     this.setState({
       loading: true
     });
-    axios.get(`http://localhost:2999//movies/`, { params: { query: title } });
+    axios
+      .get(`http://localhost:2999//movies/`, { params: { query: title } })
       .then(response => response.data)
       .then(data => {
         console.log(data);
@@ -52,6 +53,30 @@ class MovieSearch extends Component {
       });
   }
 
+  addMovie(movie)
+
+    axios
+      .post(`http://localhost:2999//movies/`, { params: { query: title } })
+      .then(response => response.data)
+      .then(data => {
+        console.log(data);
+        this.setState({
+          movie: data[0],
+          loading: false,
+          error: ""
+        });
+      })
+      .catch(error => {
+        console.log(error.message);
+        this.setState({
+          error: error.message,
+          movie: "",
+          loading: false
+        });
+      });
+  }
+
+
   render() {
     const { title, movie, error, loading } = this.state;
     return (
@@ -59,7 +84,6 @@ class MovieSearch extends Component {
         <h2>MovieSearch</h2>
         <form onSubmit={this.handleSubmit} className="mb-5">
           <div className="form-group">
-            <label htmlFor="title">Search Title</label>
             <input
               className="form-control"
               id="title"
@@ -82,7 +106,7 @@ class MovieSearch extends Component {
           ></div>
         )}
 
-        {movie && <Movie {...movie} />}
+        {movie && <Movie {...movie} onSelectClick={this.addMovie(movie)} />}
 
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
