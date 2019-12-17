@@ -19,7 +19,18 @@ class App extends Component {
      currentMovie: undefined,
     }
   }
+
+  onSelectMovie = (movie) => {
+    this.setState({currentMovie: movie});
+  }
+
   render() {
+    let selectedMovie = ""
+    if (this.state.currentMovie) {
+      selectedMovie = this.state.currentMovie.title
+    } 
+    
+
     return (
       <Router>
         <div>
@@ -40,7 +51,7 @@ class App extends Component {
             </ul>
           </nav>
 
-        <p>This will always be here</p>
+        <p>{selectedMovie}</p>
 
           {/* A <Switch> looks through its children <Route>s and
               renders the first one that matches the current URL. */}
@@ -49,7 +60,7 @@ class App extends Component {
               <CustomerList />
             </Route>
             <Route path="/library">
-              <MovieLibrary />
+              <MovieLibrary  onSelectMovie={this.onSelectMovie}/>
             </Route>
             <Route path="/search">
               <MovieSearch />
