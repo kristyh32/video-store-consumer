@@ -32,7 +32,7 @@ class MovieSearch extends Component {
       loading: true
     });
     axios
-      .get(`http://localhost:3000//movies/${title}`)
+      .get(`http://localhost:2999//movies/${title}`)
       .then(response => response.data)
       .then(data => {
         console.log(data);

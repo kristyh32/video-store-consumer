@@ -15,7 +15,7 @@ class CustomerList extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/customers")
+      .get("http://localhost:2999/customers")
       .then(response => {
         console.log(response.data);
         const customers = response.data;

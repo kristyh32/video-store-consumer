@@ -11,23 +11,13 @@ class App extends Component {
 
     this.state = {
      currentMovie: undefined,
+     selectedCustomer: undefined,
+    activeItem: "home"
     }
   }
 
   onSelectMovie = (movie) => {
     this.setState({currentMovie: movie});
-  }
-
-  render() {
-    let selectedMovie = ""
-    if (this.state.currentMovie) {
-      selectedMovie = this.state.currentMovie.title
-    } 
-    
-
-      selectedCustomer: undefined,
-      activeItem: "home"
-    };
   }
 
   handleSelectedCustomer = customer => {
@@ -43,7 +33,8 @@ class App extends Component {
   };
 
   render() {
-    const { selectedCustomer, activeItem } = this.state;
+    const { selectedCustomer, activeItem, currentMovie } = this.state;
+    
     return (
       <Router>
         <div>
@@ -87,29 +78,18 @@ class App extends Component {
             </ul>
           </nav>
 
-        <p>{selectedMovie}</p>
 
-          {/* A <Switch> looks through its children <Route>s and
-              renders the first one that matches the current URL. */}
-          <Switch>
-            <Route path="/customers">
-              <CustomerList />
-            </Route>
-            <Route path="/library">
-              <MovieLibrary  onSelectMovie={this.onSelectMovie}/>
-            </Route>
-            <Route path="/search">
-              <MovieSearch />
-            </Route>
-            <Route path="/">
-              <Home />
-            </Route>
-          </Switch>
-          <p>This will always be here</p>
           {selectedCustomer && (
             <div className="alert alert-info">
               <h3>Selected Customer</h3>
               {selectedCustomer.name}
+            </div>
+          )}
+
+          {currentMovie && (
+            <div className="alert alert-info">
+              <h3>Selected Movie</h3>
+              {currentMovie.title}
             </div>
           )}
 
@@ -124,7 +104,7 @@ class App extends Component {
                 />
               </Route>
               <Route path="/library">
-                <MovieLibrary />
+                <MovieLibrary onSelectMovie={this.onSelectMovie}/>
               </Route>
               <Route path="/search">
                 <MovieSearch />
