@@ -8,7 +8,7 @@ class MovieSearch extends Component {
 
     this.state = {
       title: "",
-      movie: "",
+      movies: [],
       error: "",
       loading: false
     };
@@ -38,7 +38,7 @@ class MovieSearch extends Component {
       .then(data => {
         console.log(data);
         this.setState({
-          movie: data[0],
+          movies: data,
           loading: false,
           error: ""
         });
@@ -47,38 +47,42 @@ class MovieSearch extends Component {
         console.log(error.message);
         this.setState({
           error: error.message,
-          movie: "",
+          movies: "",
           loading: false
         });
       });
   }
 
-  addMovie(movie)
+  // addMovie(movie)
 
-    axios
-      .post(`http://localhost:2999//movies/`, { params: { query: title } })
-      .then(response => response.data)
-      .then(data => {
-        console.log(data);
-        this.setState({
-          movie: data[0],
-          loading: false,
-          error: ""
-        });
-      })
-      .catch(error => {
-        console.log(error.message);
-        this.setState({
-          error: error.message,
-          movie: "",
-          loading: false
-        });
-      });
-  }
-
+  //   axios
+  //     .post(`http://localhost:2999//movies/`, { params: { query: title } })
+  //     .then(response => response.data)
+  //     .then(data => {
+  //       console.log(data);
+  //       this.setState({
+  //         movie: data[0],
+  //         loading: false,
+  //         error: ""
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error.message);
+  //       this.setState({
+  //         error: error.message,
+  //         movie: "",
+  //         loading: false
+  //       });
+  //     });
+  // }
 
   render() {
-    const { title, movie, error, loading } = this.state;
+    const { title, movies, error, loading } = this.state;
+    const movieCompoenents = movies.map((movie, i) => {
+      return (
+        <Movie key={i} {...movie} onSelectClick={() => this.addMovie(movie)} />
+      );
+    });
     return (
       <div className="container">
         <h2>MovieSearch</h2>
@@ -106,7 +110,7 @@ class MovieSearch extends Component {
           ></div>
         )}
 
-        {movie && <Movie {...movie} onSelectClick={this.addMovie(movie)} />}
+        {movies && movieCompoenents}
 
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
