@@ -53,28 +53,24 @@ class MovieSearch extends Component {
       });
   }
 
-  // addMovie(movie)
-
-  //   axios
-  //     .post(`http://localhost:2999//movies/`, { params: { query: title } })
-  //     .then(response => response.data)
-  //     .then(data => {
-  //       console.log(data);
-  //       this.setState({
-  //         movie: data[0],
-  //         loading: false,
-  //         error: ""
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log(error.message);
-  //       this.setState({
-  //         error: error.message,
-  //         movie: "",
-  //         loading: false
-  //       });
-  //     });
-  // }
+  addMovie(movie) {
+    axios
+      .post(`http://localhost:2999//movies/`, movie)
+      .then(() => {
+        this.setState({
+          // movies: data,
+          loading: false,
+          error: ""
+        });
+        // <Redirect to="/library" />;
+      })
+      .catch(error => {
+        console.log(error.message);
+        this.setState({
+          error: error.message
+        });
+      });
+  }
 
   render() {
     const { title, movies, error, loading } = this.state;
