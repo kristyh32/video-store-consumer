@@ -87,7 +87,6 @@ class App extends Component {
             </ul>
           </nav>
 
-<<<<<<< HEAD
         <p>{selectedMovie}</p>
 
           {/* A <Switch> looks through its children <Route>s and
@@ -106,7 +105,6 @@ class App extends Component {
               <Home />
             </Route>
           </Switch>
-=======
           <p>This will always be here</p>
           {selectedCustomer && (
             <div className="alert alert-info">
@@ -136,7 +134,6 @@ class App extends Component {
               </Route>
             </Switch>
           </main>
->>>>>>> customer
         </div>
       </Router>
     );
