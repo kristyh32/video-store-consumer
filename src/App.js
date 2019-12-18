@@ -4,6 +4,8 @@ import Home from "./components/Home";
 import MovieLibrary from "./components/MovieLibrary.js";
 import MovieSearch from "./components/MovieSearch.js";
 import CustomerList from "./components/CustomerList.js";
+import axios from "axios";
+import AlertMessage from "./components/AlertMessage";
 
 class App extends Component {
   constructor(props) {
@@ -12,17 +14,19 @@ class App extends Component {
     this.state = {
       currentMovie: undefined,
       selectedCustomer: undefined,
-      activeItem: "home"
+      activeItem: "home",
+      isCheckoutSuccessful: false
     };
   }
 
   onSelectMovie = movie => {
-    this.setState({ currentMovie: movie });
+    this.setState({ currentMovie: movie, isCheckoutSuccessful: false });
   };
 
   handleSelectedCustomer = customer => {
     this.setState({
-      selectedCustomer: customer
+      selectedCustomer: customer,
+      isCheckoutSuccessful: false
     });
   };
 
@@ -32,8 +36,40 @@ class App extends Component {
     });
   };
 
+  checkoutMovieForCustomer = () => {
+    const { currentMovie, selectedCustomer } = this.state;
+    const movieTitle = currentMovie.title;
+    const customerId = selectedCustomer.id;
+    const url = `http://localhost:2999/rentals/${movieTitle}/check-out`;
+
+    const movieToRent = {
+      customer_id: customerId,
+      due_date: "2020-03-01"
+    };
+
+    axios
+      .post(url, movieToRent)
+      .then(response => response.data)
+      .then(data => {
+        console.log(data);
+        this.setState({
+          isCheckoutSuccessful: true
+        });
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({
+          error: error.message
+        });
+      });
+  };
   render() {
-    const { selectedCustomer, activeItem, currentMovie } = this.state;
+    const {
+      selectedCustomer,
+      activeItem,
+      isCheckoutSuccessful,
+      currentMovie
+    } = this.state;
 
     return (
       <Router>
@@ -79,17 +115,29 @@ class App extends Component {
           </nav>
 
           {selectedCustomer && (
-            <div className="alert alert-info">
-              <h3>Selected Customer</h3>
-              {selectedCustomer.name}
-            </div>
+            <AlertMessage title="Selected Customer" type="info">
+              <p>{selectedCustomer.name}</p>
+            </AlertMessage>
           )}
 
           {currentMovie && (
-            <div className="alert alert-info">
-              <h3>Selected Movie</h3>
-              {currentMovie.title}
-            </div>
+            <AlertMessage title="Selected Movie" type="warning">
+              <div className="d-flex">
+                <div className="mr-auto">{currentMovie.title}</div>
+                <button
+                  className="btn btn-danger justify-content-end"
+                  onClick={this.checkoutMovieForCustomer}
+                >
+                  Checkout
+                </button>
+              </div>
+            </AlertMessage>
+          )}
+
+          {isCheckoutSuccessful && (
+            <AlertMessage title="Selected Customer" type="success">
+              <p>Movie success checkedout</p>
+            </AlertMessage>
           )}
 
           {/* A <Switch> looks through its children <Route>s and
@@ -106,7 +154,7 @@ class App extends Component {
                 <MovieLibrary onSelectMovie={this.onSelectMovie} />
               </Route>
               <Route path="/search">
-                <MovieSearch />
+                <MovieSearch onSelectMovie={this.onSelectMovie} />
               </Route>
               <Route path="/">
                 <Home />
