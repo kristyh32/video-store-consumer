@@ -54,6 +54,7 @@ class MovieSearch extends Component {
   }
 
   addMovie(movie) {
+    this.props.onSelectMovie(movie);
     axios
       .post(`http://localhost:2999//movies/`, movie)
       .then(() => {
