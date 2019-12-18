@@ -1,59 +1,54 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-import axios from 'axios';
-import PropTypes from 'prop-types';
-import Movie from './Movie';
+import axios from "axios";
+import PropTypes from "prop-types";
+import Movie from "./Movie";
 class MovieLibrary extends Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-     movies: [],
-     error: ""
-    }
+      movies: [],
+      error: ""
+    };
   }
 
   componentDidMount() {
-    axios.get('http://localhost:2999/movies')
-      .then((response) => {
+    axios
+      .get("http://localhost:2999/movies")
+      .then(response => {
         this.setState({
-          movies: response.data,
+          movies: response.data
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({ error: error.message });
       });
   }
-  
 
-  render(){
-
-  const movies = this.state.movies
-  const movieComponents = movies.map((movie, i) => {
-    return (
-      <Movie key={i} { ...movie }
-      onSelectClick={ () => this.props.onSelectMovie(movie) } 
-      />
-    );
-  });
+  render() {
+    const movies = this.state.movies;
+    const movieComponents = movies.map((movie, i) => {
+      return (
+        <Movie
+          key={i}
+          {...movie}
+          onSelectClick={() => this.props.onSelectMovie(movie)}
+        />
+      );
+    });
 
     return (
       <div>
-        <p>
-        {this.state.error}
-        </p>
-        <p>
-        {movieComponents}
-        </p>
+        <p>{this.state.error}</p>
+        <p>{movieComponents}</p>
       </div>
-    )
-  
+    );
   }
 }
 
 MovieLibrary.propTypes = {
-  onSelectMovie: PropTypes.func,
+  onSelectMovie: PropTypes.func
 };
 
 export default MovieLibrary;

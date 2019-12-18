@@ -38,9 +38,10 @@ class CustomerList extends Component {
     return (
       <div>
         {/* {this.props.customer * 100} */}
-        <h2>CustomerList</h2>
+        <h1></h1>
+
         <table className="table">
-          <thead>
+          <thead className="thead-dark">
             <tr>
               <th>Id</th>
               <th>Name</th>

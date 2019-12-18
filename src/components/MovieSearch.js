@@ -54,6 +54,7 @@ class MovieSearch extends Component {
   }
 
   addMovie(movie) {
+    console.log("error", this.state.error);
     axios
       .post(`http://localhost:2999//movies/`, movie)
       .then(() => {
@@ -65,7 +66,7 @@ class MovieSearch extends Component {
         // <Redirect to="/library" />;
       })
       .catch(error => {
-        console.log(error.message);
+        // console.log(error.message);
         this.setState({
           error: error.message
         });
@@ -94,7 +95,7 @@ class MovieSearch extends Component {
               onChange={this.handleInput}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" className="btn btn-success">
             Search
           </button>
         </form>
@@ -105,9 +106,7 @@ class MovieSearch extends Component {
             style={{ width: "6rem", height: "6rem" }}
           ></div>
         )}
-
         {movies && movieCompoenents}
-
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
     );
