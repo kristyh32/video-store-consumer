@@ -26,7 +26,22 @@ class Rentals extends Component {
       .catch(error => {
         this.setState({ error: error.message });
       });
+
+    axios
+      .get("http://localhost:2999/rentals")
+      .then(response => {
+        console.log(response.data);
+        const rentals = response.data;
+        this.setState({ rentals });
+      })
+
+      .catch(error => {
+        this.setState({ error: error.message });
+      });
   }
+
+  
+
 
 
   render() {
@@ -34,7 +49,6 @@ class Rentals extends Component {
     console.log(customers);
     return (
       <div>
-        {/* {this.props.customer * 100} */}
         <h1>Overdue Rentals</h1>
 
         <table className="table">
@@ -67,14 +81,50 @@ class Rentals extends Component {
             })}
           </tbody>
         </table>
+
+        <h1>Rentals</h1>
+
+        <table className="table">
+          <thead className="thead-dark">
+            <tr>
+              <th>Movie</th>
+              <th>Customer</th>
+              <th>Due Date</th>
+              <th>Check In</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.state.rentals.map(rental => {
+              const { title, name, due_date } = rental;
+              return (
+                <tr>
+                  <td>{title} </td>
+                  <td>{name}</td>
+                  <td>{due_date}</td>
+                  <td>
+                    <button
+                      className="btn btn-success"
+                      // onClick={() => this.handleClick(customer)}
+                    >
+                      Check In
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
+
+      
+      
     );
   }
-}
 
-Rentals.propTypes = {
-  // handleSelectedCustomer: PropTypes.func.isRequired
-  // customer: PropTypes.number.isRequired
-};
+}
+// Rentals.propTypes = {
+//   // handleSelectedCustomer: PropTypes.func.isRequired
+//   // customer: PropTypes.number.isRequired
+// };
 
 export default Rentals;
