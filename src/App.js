@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import MovieLibrary from "./components/MovieLibrary.js";
 import MovieSearch from "./components/MovieSearch.js";
 import CustomerList from "./components/CustomerList.js";
+import Rental from "./components/Rental.js"
 import axios from "axios";
 import AlertMessage from "./components/AlertMessage";
 
@@ -41,10 +42,13 @@ class App extends Component {
     const movieTitle = currentMovie.title;
     const customerId = selectedCustomer.id;
     const url = `http://localhost:2999/rentals/${movieTitle}/check-out`;
+    let due_date = new Date();
+    due_date.setDate(new Date().getDate()+7);
+    console.log(due_date)
 
     const movieToRent = {
       customer_id: customerId,
-      due_date: "2020-03-01"
+      due_date: due_date
     };
 
     axios
@@ -111,6 +115,15 @@ class App extends Component {
                   Customers
                 </Link>
               </li>
+              <li className={activeItem === "rental" ? "active" : ""}>
+                <Link
+                  to="/rentals"
+                  className="nav-link"
+                  onClick={() => this.handleNavClick("rental")}
+                >
+                  Rentals
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -124,12 +137,13 @@ class App extends Component {
             <AlertMessage title="Selected Movie" type="warning">
               <div className="d-flex">
                 <div className="mr-auto">{currentMovie.title}</div>
+                {selectedCustomer && currentMovie && (
                 <button
                   className="btn btn-danger justify-content-end"
                   onClick={this.checkoutMovieForCustomer}
                 >
                   Checkout
-                </button>
+                </button>)}
               </div>
             </AlertMessage>
           )}
@@ -152,6 +166,9 @@ class App extends Component {
               </Route>
               <Route path="/library">
                 <MovieLibrary onSelectMovie={this.onSelectMovie} />
+              </Route>
+              <Route path="/rentals">
+                <Rental />
               </Route>
               <Route path="/search">
                 <MovieSearch onSelectMovie={this.onSelectMovie} />
