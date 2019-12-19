@@ -171,7 +171,7 @@ class App extends Component {
                 <Rental />
               </Route>
               <Route path="/search">
-                <MovieSearch onSelectMovie={this.onSelectMovie} />
+                <MovieSearch  />
               </Route>
               <Route path="/">
                 <Home />

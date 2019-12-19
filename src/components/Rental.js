@@ -41,7 +41,31 @@ class Rentals extends Component {
   }
 
   checkIn = rental => {
+    const movieTitle = rental.movie.title;
+    const customer_id = rental.customer.id;
+    const url = `http://localhost:2999/rentals/${movieTitle}/return`;
+    const toReturn = {
+      customer_id: customer_id
+    };
 
+    axios
+      .post(url, toReturn)
+      .then(() => {
+        axios
+        .get("http://localhost:2999/rentals")
+        .then(response => {
+          const rentals = response.data;
+          this.setState({ rentals });
+        })
+        .catch(error => {
+          this.setState({ error: error.message });
+        });
+      })
+      .catch(error => {
+        this.setState({
+          error: error.message
+        });
+      });
   }
 
   
@@ -86,6 +110,7 @@ class Rentals extends Component {
         </table> */}
 
         <h1>Rentals</h1>
+        {this.state.error}
 
         <table className="table">
           <thead className="thead-dark">
@@ -107,7 +132,7 @@ class Rentals extends Component {
                   <td>
                     <button
                       className="btn btn-success"
-                      // onClick={() => this.handleClick(customer)}
+                      onClick={() => this.checkIn(rental)}
                     >
                       Check In
                     </button>
