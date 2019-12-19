@@ -33,7 +33,7 @@ class MovieSearch extends Component {
       loading: true
     });
     axios
-      .get(`http://localhost:2999//movies/`, { params: { query: title } })
+      .get(`http://localhost:2999/movies`, { params: { query: title } })
       .then(response => response.data)
       .then(data => {
         console.log(data);
@@ -47,17 +47,15 @@ class MovieSearch extends Component {
         console.log(error.message);
         this.setState({
           error: error.message,
-          movies: "",
+          movies: [],
           loading: false
         });
       });
   }
 
   addMovie(movie) {
-    console.log("error", this.state.error);
-    this.props.onSelectMovie(movie);
-    axios
-      .post(`http://localhost:2999//movies/`, movie)
+    console.log(movie)
+    axios.post(`http://localhost:2999/movies`, movie)
       .then(() => {
         this.setState({
           // movies: data,

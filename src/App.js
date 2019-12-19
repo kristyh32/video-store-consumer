@@ -172,7 +172,7 @@ class App extends Component {
                 <Rental />
               </Route>
               <Route path="/search">
-                <MovieSearch />
+                <MovieSearch  />
               </Route>
               <Route path="/">
                 <Home />
