@@ -78,7 +78,12 @@ class MovieSearch extends Component {
     const { title, movies, error, loading } = this.state;
     const movieCompoenents = movies.map((movie, i) => {
       return (
-        <Movie key={i} {...movie} onSelectClick={() => this.addMovie(movie)} />
+        <Movie
+          key={i}
+          {...movie}
+          showSelect={true}
+          onSelectClick={() => this.addMovie(movie)}
+        />
       );
     });
     return (
