@@ -40,16 +40,19 @@ class Rentals extends Component {
       });
   }
 
+  checkIn = rental => {
+
+  }
+
   
 
 
 
   render() {
-    const { customers } = this.state;
-    console.log(customers);
+    const { overdue, rentals } = this.state;
     return (
       <div>
-        <h1>Overdue Rentals</h1>
+        {/* <h1>Overdue Rentals</h1>
 
         <table className="table">
           <thead className="thead-dark">
@@ -61,7 +64,7 @@ class Rentals extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.overdue.map(rental => {
+            {overdue.map(rental => {
               const { title, name, due_date } = rental;
               return (
                 <tr>
@@ -80,7 +83,7 @@ class Rentals extends Component {
               );
             })}
           </tbody>
-        </table>
+        </table> */}
 
         <h1>Rentals</h1>
 
@@ -94,12 +97,12 @@ class Rentals extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.rentals.map(rental => {
-              const { title, name, due_date } = rental;
+            {rentals.map(rental => {
+              const { movie, customer, due_date } = rental;
               return (
                 <tr>
-                  <td>{title} </td>
-                  <td>{name}</td>
+                  <td>{movie.title} </td>
+                  <td>{customer.name}</td>
                   <td>{due_date}</td>
                   <td>
                     <button
