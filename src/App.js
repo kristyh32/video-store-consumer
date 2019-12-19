@@ -57,7 +57,9 @@ class App extends Component {
       .then(data => {
         console.log(data);
         this.setState({
-          isCheckoutSuccessful: true
+          isCheckoutSuccessful: true,
+          selectedCustomer: undefined,
+          currentMovie: undefined
         });
       })
       .catch(error => {
