@@ -2,26 +2,54 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Movie = props => {
-  const { id, title, overview, release_date, image_url, onSelectClick } = props;
+  const {
+    id,
+    title,
+    overview,
+    release_date,
+    image_url,
+    onSelectClick,
+    index,
+    showSelect
+  } = props;
+  const cardDeck = [0, 4, 8, 12];
+  const cardDeckClass = cardDeck.includes(index) ? "card-deck" : "";
   return (
+    <div className="mb-5 col col-sm-3 mb-4 p-0">
+      <div className="card m-2 d-flex">
+        <img
+          className="card-img-top"
+          style={{ width: "100%", height: "15vw", "object-fit": "cover" }}
+          src={image_url}
+          alt="movie photo"
+        />
+        <div className="card-body">
+          <h5 className="card-title">{title}</h5>
 
-    <div className="card movie-card">
-      <section className="movie-card--header">
-        <img src={image_url} alt="movie photo" /> {title}
-        <button
-          className="btn btn-success movie-card--select-pet-btn"
-          onClick={onSelectClick}
-        >
-          Select
-        </button>
-      </section>
-      
-      <section className="movie-card--body">
-        {overview.length > 128 ? `${overview.substring(0, 128)}...` : overview}
-      </section>
-      <section className="movie-card--footer text-muted">
-        Released: {release_date} - Id: {id}
-      </section>
+          <p className="card-text">
+            {" "}
+            {overview.length > 128
+              ? `${overview.substring(0, 128)}...`
+              : overview}
+          </p>
+          <p className="card-text">
+            <small className="text-muted">
+              {" "}
+              Released: {release_date} - Id: {id}
+            </small>
+          </p>
+          {showSelect && (
+            <div className="card-action">
+              <button
+                className="btn btn-success movie-card--select-pet-btn"
+                onClick={onSelectClick}
+              >
+                Select
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 };

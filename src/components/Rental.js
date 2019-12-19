@@ -49,7 +49,7 @@ class Rentals extends Component {
     console.log(customers);
     return (
       <div>
-        <h1>Overdue Rentals</h1>
+        <h1 class="row justify-content-center  text-muted mt-3">Overdue Rentals</h1>
 
         <table className="table">
           <thead className="thead-dark">
@@ -82,7 +82,7 @@ class Rentals extends Component {
           </tbody>
         </table>
 
-        <h1>Rentals</h1>
+        <h1 class="row justify-content-center  text-muted mt-3">Rentals</h1>
 
         <table className="table">
           <thead className="thead-dark">

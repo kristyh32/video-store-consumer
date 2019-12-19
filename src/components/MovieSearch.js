@@ -83,7 +83,7 @@ class MovieSearch extends Component {
     });
     return (
       <div className="container">
-        <h2>MovieSearch</h2>
+        <h2 class="  text-muted mt-3">MovieSearch</h2>
         <form onSubmit={this.handleSubmit} className="mb-5">
           <div className="form-group">
             <input

@@ -33,6 +33,7 @@ class MovieLibrary extends Component {
         <Movie
           key={i}
           {...movie}
+          showSelect={true}
           onSelectClick={() => this.props.onSelectMovie(movie)}
         />
       );
@@ -41,7 +42,7 @@ class MovieLibrary extends Component {
     return (
       <div>
         <p>{this.state.error}</p>
-        <p>{movieComponents}</p>
+        <div className="row">{movieComponents}</div>
       </div>
     );
   }
