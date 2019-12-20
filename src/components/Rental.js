@@ -62,8 +62,7 @@ class Rentals extends Component {
     const today = new Date()
     return (
       <div>
-
-        <h1>Rentals</h1>
+        <h1></h1>
         {this.state.error && (<AlertMessage title={this.state.error} type="warning" />)}
 
         <table className="table">
