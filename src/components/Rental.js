@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import AlertMessage from "./AlertMessage";
+import "../App.css"
 
 class Rentals extends Component {
   constructor(props) {
@@ -9,24 +9,11 @@ class Rentals extends Component {
 
     this.state = {
       rentals: [],
-      overdue: [],
       error: ""
     };
   }
 
   componentDidMount() {
-    axios
-      .get("http://localhost:2999/rentals/overdue")
-      .then(response => {
-        console.log(response.data);
-        const overdue = response.data;
-        this.setState({ overdue });
-      })
-
-      .catch(error => {
-        this.setState({ error: error.message });
-      });
-
     axios
       .get("http://localhost:2999/rentals")
       .then(response => {
@@ -70,47 +57,14 @@ class Rentals extends Component {
 
   
 
-
-
   render() {
-    const { overdue, rentals } = this.state;
+    const { rentals } = this.state;
+    const today = new Date()
     return (
       <div>
-        {/* <h1>Overdue Rentals</h1>
-
-        <table className="table">
-          <thead className="thead-dark">
-            <tr>
-              <th>Movie</th>
-              <th>Customer</th>
-              <th>Due Date</th>
-              <th>Check In</th>
-            </tr>
-          </thead>
-          <tbody>
-            {overdue.map(rental => {
-              const { title, name, due_date } = rental;
-              return (
-                <tr>
-                  <td>{title} </td>
-                  <td>{name}</td>
-                  <td>{due_date}</td>
-                  <td>
-                    <button
-                      className="btn btn-success"
-                      // onClick={() => this.handleClick(customer)}
-                    >
-                      Check In
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table> */}
 
         <h1>Rentals</h1>
-        {this.state.error}
+        {this.state.error && (<AlertMessage title={this.state.error} type="warning" />)}
 
         <table className="table">
           <thead className="thead-dark">
@@ -128,7 +82,7 @@ class Rentals extends Component {
                 <tr>
                   <td>{movie.title} </td>
                   <td>{customer.name}</td>
-                  <td>{due_date}</td>
+                  <td className={new Date(due_date) < today ? "Overdue" : ""}>{due_date}</td>
                   <td>
                     <button
                       className="btn btn-success"
@@ -141,6 +95,7 @@ class Rentals extends Component {
               );
             })}
           </tbody>
+          {/* {className={ ? "Overdue" : ""}} */}
         </table>
       </div>
 
