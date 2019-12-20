@@ -76,12 +76,14 @@ class MovieSearch extends Component {
     const { title, movies, error, loading } = this.state;
     const movieCompoenents = movies.map((movie, i) => {
       return (
-        <Movie
-          key={i}
-          {...movie}
-          showSelect={true}
-          onSelectClick={() => this.addMovie(movie)}
-        />
+        
+          <Movie
+            key={i}
+            {...movie}
+            showSelect={true}
+            onSelectClick={() => this.addMovie(movie)}
+          />
+  
       );
     });
     return (
@@ -110,7 +112,9 @@ class MovieSearch extends Component {
             style={{ width: "6rem", height: "6rem" }}
           ></div>
         )}
-        {movies && movieCompoenents}
+        {movies && <div className="row">
+          {movieCompoenents}
+          </div>}
         {error && <div className="alert alert-danger">{error}</div>}
       </div>
     );
