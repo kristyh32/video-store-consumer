@@ -23,7 +23,7 @@
 }
 
 .Overdue {
-  background-color: tomato;
+  color: red;
 }
 
 @keyframes App-logo-spin {

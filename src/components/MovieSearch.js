@@ -81,6 +81,7 @@ class MovieSearch extends Component {
             key={i}
             {...movie}
             showSelect={true}
+            movieSearch={true}
             onSelectClick={() => this.addMovie(movie)}
           />
   

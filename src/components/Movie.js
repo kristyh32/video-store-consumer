@@ -10,7 +10,8 @@ const Movie = props => {
     image_url,
     onSelectClick,
     index,
-    showSelect
+    showSelect,
+    movieSearch
   } = props;
   const cardDeck = [0, 4, 8, 12];
   const cardDeckClass = cardDeck.includes(index) ? "card-deck" : "";
@@ -44,7 +45,7 @@ const Movie = props => {
                 className="btn btn-success movie-card--select-pet-btn"
                 onClick={onSelectClick}
               >
-                Select
+                {movieSearch ? "Add To Library" : "Select" }
               </button>
             </div>
           )}
